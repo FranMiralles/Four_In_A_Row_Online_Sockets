@@ -31,13 +31,13 @@
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label minWidth="90.0" text="IP servidor:" />
-                        <TextField fx:id="clienteIP" prefWidth="150.0" />
+                        <TextField fx:id="clienteIP" prefWidth="150.0" promptText="localhost" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label minWidth="90.0" text="Puerto:" />
-                        <TextField fx:id="clientePort" prefWidth="70.0" />
+                        <TextField fx:id="clientePort" prefWidth="70.0" promptText="9000" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0">
@@ -67,7 +67,7 @@
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label minWidth="90.0" text="Puerto:" />
-                        <TextField fx:id="servidorPort" prefWidth="70.0" />
+                        <TextField fx:id="servidorPort" prefWidth="70.0" promptText="9000" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT">
