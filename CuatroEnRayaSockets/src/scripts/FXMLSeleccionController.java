@@ -9,10 +9,15 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
 public class FXMLSeleccionController implements Initializable {
@@ -57,13 +62,20 @@ public class FXMLSeleccionController implements Initializable {
     @FXML
     private void crearCliente(){
         l.add("Cliente ip=" + clienteIP.getText() + " p=" + clientePort.getText());
-        try{Socket s = new Socket(clienteIP.getText(), Integer.parseInt(clientePort.getText())); System.out.println(s.toString()); s.close();}catch(UnknownHostException e){
-            System.out.println("No se encontro el host");
-            System.out.println(e);
-        }catch(IOException e){
-            System.out.println("No se pudo conectar");
-            System.out.println(e);
-        }
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("FXMLSelectorCliente.fxml"));
+        try{
+            Parent root = miCargador.load();
+            FXMLSelectorClienteController controladorCliente = miCargador.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Selector Cliente");
+            stage.show();
+            
+            controladorCliente.crearCliente(clienteIP.getText(), Integer.parseInt(clientePort.getText()));
+        }catch(IOException e){ System.out.println(e.toString());}
+        
         
     }
 }
