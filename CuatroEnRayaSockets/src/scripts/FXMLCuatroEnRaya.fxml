@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scripts.FXMLCuatroEnRayaController">
    <center>
       <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -35,31 +35,31 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_">
+            <Button fx:id="c0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="1">
+            <Button fx:id="c1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="2">
+            <Button fx:id="c2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="3">
+            <Button fx:id="c3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="4">
+            <Button fx:id="c4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="4">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="5">
+            <Button fx:id="c5" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="6">
+            <Button fx:id="c6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="_|_" GridPane.columnIndex="6">
                <GridPane.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </GridPane.margin></Button>
@@ -78,12 +78,12 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
-                  <ImageView fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="yourImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/men5.png" />
                      </image>
                   </ImageView>
-                  <Label text="Fran">
+                  <Label fx:id="yourName" text="Fran">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -100,12 +100,12 @@
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1">
                <children>
                   <Circle fill="#ff1f1ff2" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="Lucía">
+                  <Label fx:id="otherName" text="Lucía">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <ImageView fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="otherImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/woman3.png" />
                      </image>
