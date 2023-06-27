@@ -11,7 +11,7 @@ public class FXMLJavaApplication extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLSeleccion.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLInicio.fxml"));
         
         Scene scene = new Scene(root);
         stage.setTitle("Cuatro En Raya");

@@ -19,7 +19,7 @@
                   <TextField fx:id="nombreJugador" />
                </children>
             </HBox>
-            <Button fx:id="confirmar" mnemonicParsing="false" text="Confirmar" />
+            <Button fx:id="confirmar" mnemonicParsing="false" onAction="#confirmar" text="Confirmar" />
          </children>
       </VBox>
    </center>

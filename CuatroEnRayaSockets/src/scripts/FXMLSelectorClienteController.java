@@ -1,10 +1,12 @@
 package scripts;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -44,6 +46,19 @@ public class FXMLSelectorClienteController implements Initializable {
         images[10] = new Image("images/woman5.png", 140, 150, false, true);
         images[11] = new Image("images/woman6.png", 140, 150, false, true);
         imagenJugador.setImage(images[0]);
+    }
+    
+    @FXML
+    private void confirmar(){
+        try{
+            PrintWriter pw = new PrintWriter(cliente.getOutputStream());
+            
+            pw.print(nombreJugador.getText() + "|" + i); pw.flush();
+            System.out.println("Enviado mensaje");
+            
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }
     }
     
     public void crearCliente(String ipServidor, int puerto){

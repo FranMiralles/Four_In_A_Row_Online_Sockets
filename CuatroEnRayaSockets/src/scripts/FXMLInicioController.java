@@ -20,7 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-public class FXMLSeleccionController implements Initializable {
+public class FXMLInicioController implements Initializable {
 
 
     @FXML
@@ -53,7 +53,7 @@ public class FXMLSeleccionController implements Initializable {
         new Thread(() -> {
                 System.out.println("Iniciando servidor en el puerto " + servidorPort.getText());
                 Servidor s = new Servidor(Integer.parseInt(servidorPort.getText()));
-                //s.proceso();
+                s.proceso();
                 System.out.println(s.getSocket().getInetAddress().toString());
                 //try{s.getSocket().close();}catch(Exception e){}
             }).start();
