@@ -53,7 +53,7 @@ public class FXMLSelectorClienteController implements Initializable {
         try{
             PrintWriter pw = new PrintWriter(cliente.getOutputStream());
             
-            pw.print(nombreJugador.getText() + "|" + i); pw.flush();
+            pw.print(nombreJugador.getText() + "|" + i + "\n"); pw.flush();
             System.out.println("Enviado mensaje");
             
         }catch(IOException e){

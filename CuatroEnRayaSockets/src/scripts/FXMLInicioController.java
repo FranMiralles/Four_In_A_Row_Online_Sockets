@@ -56,7 +56,7 @@ public class FXMLInicioController implements Initializable {
                 s.proceso();
                 System.out.println(s.getSocket().getInetAddress().toString());
                 //try{s.getSocket().close();}catch(Exception e){}
-            }).start();
+        }).start();
     }
     
     @FXML
