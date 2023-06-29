@@ -54,8 +54,6 @@ public class FXMLInicioController implements Initializable {
                 System.out.println("Iniciando servidor en el puerto " + servidorPort.getText());
                 Servidor s = new Servidor(Integer.parseInt(servidorPort.getText()));
                 s.proceso();
-                System.out.println(s.getSocket().getInetAddress().toString());
-                //try{s.getSocket().close();}catch(Exception e){}
         }).start();
     }
     
