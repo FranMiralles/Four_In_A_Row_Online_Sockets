@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
@@ -40,4 +41,10 @@ public class FXMLCuatroEnRayaController implements Initializable {
         
     }    
     
+    public void configurar(String yName, int yImage, String oName, int oImage, Image[] images){
+        yourName.setText(yName);
+        yourImage.setImage(images[yImage]);
+        otherName.setText(oName);
+        otherImage.setImage(images[oImage]);
+    }
 }

@@ -10,11 +10,15 @@ import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 
 public class FXMLSelectorClienteController implements Initializable {
@@ -52,17 +56,37 @@ public class FXMLSelectorClienteController implements Initializable {
     
     @FXML
     private void confirmar(){
+        
+        new Thread(() -> {
+            try{
+                PrintWriter pw = new PrintWriter(cliente.getOutputStream());
+
+                pw.print(nombreJugador.getText() + "," + i + "\n"); pw.flush();
+                System.out.println("CLIENTE: Mensaje enviado");
+                Scanner sc = new Scanner(new InputStreamReader(cliente.getInputStream()));
+                String respuesta = sc.nextLine();
+                System.out.println("RESPUESTA =>" + respuesta);
+                String[] r = respuesta.split(",");
+                cambiarJugar(r[0], Integer.parseInt(r[1]));
+                
+            }catch(IOException e){
+                System.out.println(e.toString());
+            }
+        }).start();
+        
+    }
+    
+    private void cambiarJugar(String nameOponent, int numOponent){
         try{
-            PrintWriter pw = new PrintWriter(cliente.getOutputStream());
-            
-            pw.print(nombreJugador.getText() + "|" + i + "\n"); pw.flush();
-            System.out.println("Enviado mensaje");
-            Scanner sc = new Scanner(new InputStreamReader(cliente.getInputStream()));
-            System.out.println(sc.nextLine());
-            
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLCuatroEnRaya.fxml"));
+            Parent root = loader.load();
+            FXMLCuatroEnRayaController controller = loader.getController();
+            controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, images);
+            nombreJugador.getScene().setRoot(root);
         }catch(IOException e){
             System.out.println(e.toString());
         }
+        
     }
     
     public void crearCliente(String ipServidor, int puerto){
