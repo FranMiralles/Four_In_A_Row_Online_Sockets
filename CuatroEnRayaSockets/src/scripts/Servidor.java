@@ -36,14 +36,8 @@ public class Servidor {
         new Thread(() -> {
             try{
                 cliente1 = ss.accept();
-                System.out.println("SERVER: LLegó primer cliente");
-                
                 BufferedReader bf = new BufferedReader(new InputStreamReader(cliente1.getInputStream()));
-                
-                System.out.println("SERVER: Esperando por una linea");
                 String mensajeAccion = bf.readLine();
-                
-                System.out.println("SERVER: Mensaje de acción recibido: " + mensajeAccion);
                 m1.set(mensajeAccion);
                 c.countDown();
             }catch(IOException e){
@@ -54,14 +48,9 @@ public class Servidor {
         new Thread(() -> {
             try{
                 cliente2 = ss.accept();
-                System.out.println("SERVER: LLegó segundo cliente");
                 
                 Scanner sc2 = new Scanner(new InputStreamReader(cliente2.getInputStream()));
-                
-                System.out.println("SERVER: Esperando por una linea");
                 String mensajeAccion = sc2.nextLine();
-                
-                System.out.println("SERVER: Mensaje de acción recibido: " + mensajeAccion);
                 m2.set(mensajeAccion);
                 c.countDown();
             }catch(IOException e){
@@ -72,12 +61,10 @@ public class Servidor {
         
         try{
             c.await();
-            System.out.println("SERVER: Los mensajes recibidos son: " + m1 + m2);
-            System.out.println("SERVER: Enviando mensajes a los clientes");
             PrintWriter pw1 = new PrintWriter(cliente1.getOutputStream());
             PrintWriter pw2 = new PrintWriter(cliente2.getOutputStream());
-            pw1.println(m2); pw1.flush();
-            pw2.println(m1); pw2.flush();
+            pw1.println(m2 + ",1"); pw1.flush();
+            pw2.println(m1 + ",2"); pw2.flush();
         }catch(InterruptedException e){
             
         }catch(IOException e){

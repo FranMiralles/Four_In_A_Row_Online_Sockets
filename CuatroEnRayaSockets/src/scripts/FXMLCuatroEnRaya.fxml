@@ -88,7 +88,8 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Circle fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fx:id="yourFicha" fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="yourTurn" text="Tu turno" />
                </children>
                <GridPane.margin>
                   <Insets />
@@ -99,7 +100,8 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1">
                <children>
-                  <Circle fill="#ff1f1ff2" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="otherTurn" text="Su turno" />
+                  <Circle fx:id="otherFicha" fill="#ff1f1ff2" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label fx:id="otherName" text="Lucía">
                      <HBox.margin>
                         <Insets />
