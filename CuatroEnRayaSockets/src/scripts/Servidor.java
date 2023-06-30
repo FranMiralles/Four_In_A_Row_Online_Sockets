@@ -66,9 +66,9 @@ public class Servidor {
             pw1.println(m2 + ",1"); pw1.flush();
             pw2.println(m1 + ",2"); pw2.flush();
         }catch(InterruptedException e){
-            
+            System.out.println(e.toString());
         }catch(IOException e){
-            
+            System.out.println(e.toString());
         }
     }
     
