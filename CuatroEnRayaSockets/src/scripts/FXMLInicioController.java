@@ -53,7 +53,7 @@ public class FXMLInicioController implements Initializable {
         new Thread(() -> {
                 System.out.println("Iniciando servidor en el puerto " + servidorPort.getText());
                 Servidor s = new Servidor(Integer.parseInt(servidorPort.getText()));
-                s.proceso();
+                s.procesoInicio();
         }).start();
     }
     

@@ -72,7 +72,7 @@ public class FXMLSelectorClienteController implements Initializable {
                     confirmar.setDisable(true);
                 });
                 
-                Scanner sc = new Scanner(new InputStreamReader(cliente.getInputStream()));
+                Scanner sc = new Scanner(cliente.getInputStream());
                 String respuesta = sc.nextLine();
                 String[] r = respuesta.split(",");
                 cambiarJugar(r[0], Integer.parseInt(r[1]), Integer.parseInt(r[2]));
@@ -90,7 +90,9 @@ public class FXMLSelectorClienteController implements Initializable {
             Parent root = loader.load();
             FXMLCuatroEnRayaController controller = loader.getController();
             nombreJugador.getScene().setRoot(root);
+            controller.setSocket(cliente);
             Platform.runLater(() -> controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, turno, images));
+            
         }catch(IOException e){
             System.out.println(e.toString());
         }

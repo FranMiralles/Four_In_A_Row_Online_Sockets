@@ -26,7 +26,7 @@ public class Servidor {
         }
     }
     
-    public void proceso(){
+    public void procesoInicio(){
         
         System.out.println("SERVER: Servidor iniciado");
         CountDownLatch c = new CountDownLatch(2);
@@ -36,8 +36,8 @@ public class Servidor {
         new Thread(() -> {
             try{
                 cliente1 = ss.accept();
-                BufferedReader bf = new BufferedReader(new InputStreamReader(cliente1.getInputStream()));
-                String mensajeAccion = bf.readLine();
+                Scanner sc = new Scanner(cliente1.getInputStream());
+                String mensajeAccion = sc.nextLine();
                 m1.set(mensajeAccion);
                 c.countDown();
             }catch(IOException e){
@@ -65,11 +65,32 @@ public class Servidor {
             PrintWriter pw2 = new PrintWriter(cliente2.getOutputStream());
             pw1.println(m2 + ",1"); pw1.flush();
             pw2.println(m1 + ",2"); pw2.flush();
+            procesoJuego();
         }catch(InterruptedException e){
             System.out.println(e.toString());
         }catch(IOException e){
             System.out.println(e.toString());
         }
+    }
+    
+    public void procesoJuego(){
+        // El primero es el cliente1, el segundo es el cliente2
+        try{
+            while(true){
+                Scanner sc1 = new Scanner(cliente1.getInputStream());
+                String m1 = sc1.nextLine();
+                PrintWriter pw2 = new PrintWriter(cliente2.getOutputStream());
+                pw2.println(m1); pw2.flush();
+                
+                Scanner sc2 = new Scanner(cliente2.getInputStream());
+                String m2 = sc2.nextLine();
+                PrintWriter pw1 = new PrintWriter(cliente1.getOutputStream());
+                pw1.println(m2); pw1.flush();
+            } 
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }
+        
     }
     
     public ServerSocket getSocket(){
