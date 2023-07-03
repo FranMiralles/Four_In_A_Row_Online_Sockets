@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scripts.FXMLCuatroEnRayaController">
@@ -83,13 +84,19 @@
                         <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/men5.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="yourName" text="Fran">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <Circle fill="DODGERBLUE" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label fx:id="yourName" text="Fran" />
+                        <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </VBox>
                   <Label fx:id="yourTurn" text="Tu turno" />
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="yourCount" text="0" />
+                        <Label text="/5" />
+                     </children>
+                  </HBox>
                </children>
                <GridPane.margin>
                   <Insets />
@@ -100,13 +107,19 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1">
                <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label fx:id="otherCount" text="0" />
+                        <Label text="/5" />
+                     </children>
+                  </HBox>
                   <Label fx:id="otherTurn" text="Su turno" />
-                  <Circle fill="#ff1f1ff2" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label fx:id="otherName" text="Lucía">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label fx:id="otherName" text="Lucía" />
+                        <Circle fill="#ff1f1ff2" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </VBox>
                   <ImageView fx:id="otherImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/woman3.png" />

@@ -54,10 +54,15 @@ public class FXMLCuatroEnRayaController implements Initializable {
     private Button c6;
     @FXML
     private GridPane tablero;
+    @FXML
+    private Label yourCount;
+    @FXML
+    private Label otherCount;
     
     public boolean turno;
     public int[][] tableroLogico;
     Socket cliente;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -87,7 +92,11 @@ public class FXMLCuatroEnRayaController implements Initializable {
         tablero.add(circle, c, --f);
         tableroLogico[f][c] = 1;
         int g = 0;
-        if(comprobarGanar()){ vaciarTablero(); g = 1;}
+        if(comprobarGanar()){ 
+            vaciarTablero(); g = 1;
+            int count = Integer.parseInt(yourCount.getText()) + 1;
+            yourCount.setText(count + "");
+        }
         
         try{
             PrintWriter pw = new PrintWriter(cliente.getOutputStream());
@@ -155,7 +164,11 @@ public class FXMLCuatroEnRayaController implements Initializable {
                     circle.setFill(paint);
                     tablero.add(circle, c, f);
                     tableroLogico[f][c] = 2;
-                    if(g == 1){ /*Ha ganado el otro*/ vaciarTablero();}
+                    if(g == 1){ /*Ha ganado el otro*/
+                        vaciarTablero();
+                        int count = Integer.parseInt(otherCount.getText()) + 1;
+                        otherCount.setText(count + "");
+                    }
                 });
                 turno = true;
                 yourTurn.setDisable(false);
@@ -167,7 +180,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
         }).start();
     }
     
-    public void configurar(String yName, int yImage, String oName, int oImage, int turno, Image[] images){
+    public void configurar(String yName, int yImage, String oName, int oImage, int ronda, int turno, Image[] images){
         yourName.setText(yName);
         yourImage.setImage(images[yImage]);
         otherName.setText(oName);

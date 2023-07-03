@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -33,10 +34,13 @@ public class FXMLSelectorClienteController implements Initializable {
     private ImageView imagenJugador;
     @FXML
     private Label estado;
+    @FXML
+    private ComboBox<Integer> rondas;
     
     Socket cliente;
     Image[] images;
     int i = 0;
+    
     
     
     @Override
@@ -57,6 +61,8 @@ public class FXMLSelectorClienteController implements Initializable {
         images[11] = new Image("images/woman6.png", 140, 150, false, true);
         imagenJugador.setImage(images[0]);
         estado.setText("¡Elige tu nombre e icono!");
+        rondas.getItems().add(3);rondas.getItems().add(5);rondas.getItems().add(8);
+        rondas.getSelectionModel().selectFirst();
     }
     
     @FXML
@@ -65,17 +71,18 @@ public class FXMLSelectorClienteController implements Initializable {
         new Thread(() -> {
             try{
                 PrintWriter pw = new PrintWriter(cliente.getOutputStream());
-                pw.print(nombreJugador.getText() + "," + i + "\n"); pw.flush();
+                pw.print(nombreJugador.getText() + "," + i + "," + rondas.getSelectionModel().getSelectedItem() + "\n"); pw.flush();
                 
                 Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
                     estado.setText("Esperando al otro jugador...");
                     confirmar.setDisable(true);
+                    rondas.setDisable(true);
                 });
                 
                 Scanner sc = new Scanner(cliente.getInputStream());
                 String respuesta = sc.nextLine();
                 String[] r = respuesta.split(",");
-                cambiarJugar(r[0], Integer.parseInt(r[1]), Integer.parseInt(r[2]));
+                cambiarJugar(r[0], Integer.parseInt(r[1]), Integer.parseInt(r[2]), Integer.parseInt(r[3]));
                 
             }catch(IOException e){
                 System.out.println(e.toString());
@@ -84,14 +91,14 @@ public class FXMLSelectorClienteController implements Initializable {
         
     }
     
-    private void cambiarJugar(String nameOponent, int numOponent, int turno){
+    private void cambiarJugar(String nameOponent, int numOponent, int ronda, int turno){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLCuatroEnRaya.fxml"));
             Parent root = loader.load();
             FXMLCuatroEnRayaController controller = loader.getController();
             nombreJugador.getScene().setRoot(root);
             controller.setSocket(cliente);
-            Platform.runLater(() -> controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, turno, images));
+            Platform.runLater(() -> controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, ronda, turno, images));
             
         }catch(IOException e){
             System.out.println(e.toString());
