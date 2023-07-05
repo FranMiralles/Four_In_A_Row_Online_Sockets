@@ -63,8 +63,24 @@ public class Servidor {
             c.await();
             PrintWriter pw1 = new PrintWriter(cliente1.getOutputStream());
             PrintWriter pw2 = new PrintWriter(cliente2.getOutputStream());
-            pw1.println(m2 + ",1"); pw1.flush();
-            pw2.println(m1 + ",2"); pw2.flush();
+            // Coger un valor de ronda random
+            char m1R = m1.get().charAt(m1.get().length() - 1);
+            System.out.println(m1R);
+            char m2R = m2.get().charAt(m2.get().length() - 1);
+            System.out.println(m2R);
+            int alR = (int) (Math.random() * 2);
+            System.out.println(alR);
+            switch(alR){
+                case 0:
+                    alR = Integer.parseInt(m1R + "");
+                    break;
+                case 1:
+                    alR = Integer.parseInt(m2R + "");
+                    break;
+            }
+            System.out.println(alR);
+            pw1.println(m1.get().substring(0, m1.get().length() - 1) + alR + ",1"); pw1.flush();
+            pw2.println(m2.get().substring(0, m2.get().length() - 1) + alR + ",2"); pw2.flush();
             procesoJuego();
         }catch(InterruptedException e){
             System.out.println(e.toString());

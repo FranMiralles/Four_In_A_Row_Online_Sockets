@@ -15,6 +15,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -58,10 +60,15 @@ public class FXMLCuatroEnRayaController implements Initializable {
     private Label yourCount;
     @FXML
     private Label otherCount;
+    @FXML
+    private Label count1;
+    @FXML
+    private Label count2;
     
     public boolean turno;
     public int[][] tableroLogico;
     Socket cliente;
+    int limPuntos;
     
     
     @Override
@@ -95,6 +102,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
         if(comprobarGanar()){ 
             vaciarTablero(); g = 1;
             int count = Integer.parseInt(yourCount.getText()) + 1;
+            if(count == limPuntos){ acabar(1);} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
             yourCount.setText(count + "");
         }
         
@@ -110,6 +118,48 @@ public class FXMLCuatroEnRayaController implements Initializable {
             System.out.println(e.toString());
         }
         return 0;
+    }
+    
+    public void recibir(){
+        new Thread(() -> {
+            try{
+                Scanner sc = new Scanner(cliente.getInputStream());
+                String mensaje = sc.nextLine(); //Esperando al mensaje
+                int f = Integer.parseInt(mensaje.charAt(0) + "");
+                int c = Integer.parseInt(mensaje.charAt(1) + "");
+                int g = Integer.parseInt(mensaje.charAt(2) + "");
+                
+                Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
+                    Circle circle = new Circle();
+                    circle.setRadius(20);
+                    Paint paint = (Paint) Color.RED;
+                    circle.setFill(paint);
+                    tablero.add(circle, c, f);
+                    tableroLogico[f][c] = 2;
+                    if(g == 1){ /*Ha ganado el otro*/
+                        vaciarTablero();
+                        int count = Integer.parseInt(otherCount.getText()) + 1;
+                        otherCount.setText(count + "");
+                    }
+                });
+                turno = true;
+                yourTurn.setDisable(false);
+                otherTurn.setDisable(true);
+            }catch(IOException e){
+                System.out.println(e.toString());
+            }
+
+        }).start();
+    }
+    
+    public void acabar(int ganador){
+        Alert a = new Alert(AlertType.INFORMATION);
+        if(ganador == 1){ //Tu
+            a.setContentText("Ha ganado el jugador " + yourName.getText());
+        }else{ a.setContentText("Ha ganado el jugador " + otherName.getText());}
+        a.showAndWait();
+        try{ cliente.close();}catch(IOException e){ System.out.println(e.toString());}
+        ((Stage)yourName.getScene().getWindow()).close();
     }
     
     public boolean comprobarGanar(){
@@ -148,43 +198,14 @@ public class FXMLCuatroEnRayaController implements Initializable {
         tablero.getChildren().removeAll(circlesToRemove);
     }
     
-    public void recibir(){
-        new Thread(() -> {
-            try{
-                Scanner sc = new Scanner(cliente.getInputStream());
-                String mensaje = sc.nextLine(); //Esperando al mensaje
-                int f = Integer.parseInt(mensaje.charAt(0) + "");
-                int c = Integer.parseInt(mensaje.charAt(1) + "");
-                int g = Integer.parseInt(mensaje.charAt(2) + "");
-                
-                Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
-                    Circle circle = new Circle();
-                    circle.setRadius(20);
-                    Paint paint = (Paint) Color.RED;
-                    circle.setFill(paint);
-                    tablero.add(circle, c, f);
-                    tableroLogico[f][c] = 2;
-                    if(g == 1){ /*Ha ganado el otro*/
-                        vaciarTablero();
-                        int count = Integer.parseInt(otherCount.getText()) + 1;
-                        otherCount.setText(count + "");
-                    }
-                });
-                turno = true;
-                yourTurn.setDisable(false);
-                otherTurn.setDisable(true);
-            }catch(IOException e){
-                System.out.println(e.toString());
-            }
-
-        }).start();
-    }
-    
     public void configurar(String yName, int yImage, String oName, int oImage, int ronda, int turno, Image[] images){
         yourName.setText(yName);
         yourImage.setImage(images[yImage]);
         otherName.setText(oName);
         otherImage.setImage(images[oImage]);
+        count1.setText(ronda + "");
+        count2.setText(ronda + "");
+        limPuntos = ronda;
         if(turno == 1){
             otherTurn.setDisable(true);
             this.turno = true;
@@ -195,6 +216,9 @@ public class FXMLCuatroEnRayaController implements Initializable {
             recibir();
         }
         setMin();
+        Alert a = new Alert(AlertType.INFORMATION);
+        a.setContentText("Se ha decidido jugar a " + ronda + " rondas.");
+        a.showAndWait();
     }
     
     public void setMin(){

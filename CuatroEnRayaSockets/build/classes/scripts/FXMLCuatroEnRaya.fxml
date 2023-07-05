@@ -94,7 +94,8 @@
                   <HBox alignment="CENTER">
                      <children>
                         <Label fx:id="yourCount" text="0" />
-                        <Label text="/5" />
+                        <Label text="/" />
+                        <Label fx:id="count1" text="5" />
                      </children>
                   </HBox>
                </children>
@@ -110,7 +111,8 @@
                   <HBox alignment="CENTER">
                      <children>
                         <Label fx:id="otherCount" text="0" />
-                        <Label text="/5" />
+                        <Label text="/" />
+                        <Label fx:id="count2" text="5" />
                      </children>
                   </HBox>
                   <Label fx:id="otherTurn" text="Su turno" />
