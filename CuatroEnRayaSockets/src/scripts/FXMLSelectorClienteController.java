@@ -98,7 +98,13 @@ public class FXMLSelectorClienteController implements Initializable {
             FXMLCuatroEnRayaController controller = loader.getController();
             nombreJugador.getScene().setRoot(root);
             controller.setSocket(cliente);
-            Platform.runLater(() -> controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, ronda, turno, images));
+            Stage stage = (Stage) root.getScene().getWindow();
+            Platform.runLater(() -> {
+                controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, ronda, turno, images);
+                stage.setResizable(true);
+                stage.setMinWidth(900);
+                stage.setMinHeight(800);
+            });
             
         }catch(IOException e){
             System.out.println(e.toString());

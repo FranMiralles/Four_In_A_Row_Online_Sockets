@@ -28,7 +28,6 @@ public class Servidor {
     public void procesoInicio(FXMLInicioController controller){
         
         this.controller = controller;
-        System.out.println("SERVER: Servidor iniciado");
         CountDownLatch c = new CountDownLatch(2);
         AtomicReference<String> m1 = new AtomicReference<>();
         AtomicReference<String> m2 = new AtomicReference<>();
@@ -65,11 +64,8 @@ public class Servidor {
             PrintWriter pw2 = new PrintWriter(cliente2.getOutputStream());
             // Coger un valor de ronda random
             char m1R = m1.get().charAt(m1.get().length() - 1);
-            System.out.println(m1R);
             char m2R = m2.get().charAt(m2.get().length() - 1);
-            System.out.println(m2R);
             int alR = (int) (Math.random() * 2);
-            System.out.println(alR);
             switch(alR){
                 case 0:
                     alR = Integer.parseInt(m1R + "");
@@ -78,7 +74,6 @@ public class Servidor {
                     alR = Integer.parseInt(m2R + "");
                     break;
             }
-            System.out.println(alR);
             pw1.println(m2.get().substring(0, m2.get().length() - 1) + alR + ",1"); pw1.flush();
             pw2.println(m1.get().substring(0, m1.get().length() - 1) + alR + ",2"); pw2.flush();
             procesoJuego();

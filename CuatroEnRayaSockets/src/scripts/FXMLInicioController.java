@@ -3,15 +3,11 @@ package scripts;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -38,7 +34,6 @@ public class FXMLInicioController implements Initializable {
     @FXML
     private void crearServidor(){     
         new Thread(() -> {
-                System.out.println("Iniciando servidor en el puerto " + servidorPort.getText());
                 Servidor s = new Servidor(Integer.parseInt(servidorPort.getText()));
                 servidor.setOpacity(1);
                 FXMLInicioController controller = this;
