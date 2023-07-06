@@ -1,8 +1,6 @@
 package scripts;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -17,6 +15,7 @@ public class Servidor {
     private ServerSocket ss;
     private Socket cliente1;
     private Socket cliente2;
+    FXMLInicioController controller;
     
     public Servidor(int port){
         try{
@@ -26,8 +25,9 @@ public class Servidor {
         }
     }
     
-    public void procesoInicio(){
+    public void procesoInicio(FXMLInicioController controller){
         
+        this.controller = controller;
         System.out.println("SERVER: Servidor iniciado");
         CountDownLatch c = new CountDownLatch(2);
         AtomicReference<String> m1 = new AtomicReference<>();
@@ -79,8 +79,8 @@ public class Servidor {
                     break;
             }
             System.out.println(alR);
-            pw1.println(m1.get().substring(0, m1.get().length() - 1) + alR + ",1"); pw1.flush();
-            pw2.println(m2.get().substring(0, m2.get().length() - 1) + alR + ",2"); pw2.flush();
+            pw1.println(m2.get().substring(0, m2.get().length() - 1) + alR + ",1"); pw1.flush();
+            pw2.println(m1.get().substring(0, m1.get().length() - 1) + alR + ",2"); pw2.flush();
             procesoJuego();
         }catch(InterruptedException e){
             System.out.println(e.toString());
@@ -102,9 +102,11 @@ public class Servidor {
                 String m2 = sc2.nextLine();
                 PrintWriter pw1 = new PrintWriter(cliente1.getOutputStream());
                 pw1.println(m2); pw1.flush();
-            } 
-        }catch(IOException e){
-            System.out.println(e.toString());
+            }
+        }catch(Exception e){
+            System.out.println("Se ha cerrado la conexión");
+            try{ss.close();}catch(Exception er){}
+            controller.cambiarOpacidad();
         }
         
     }

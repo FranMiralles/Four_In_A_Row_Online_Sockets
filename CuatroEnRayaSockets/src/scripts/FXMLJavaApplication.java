@@ -17,8 +17,6 @@ public class FXMLJavaApplication extends Application {
         stage.setTitle("Cuatro En Raya");
         stage.setScene(scene);
         stage.centerOnScreen();
-        stage.setMinWidth(600);
-        stage.setMinHeight(450);
         stage.setResizable(false);
         stage.show();
     }

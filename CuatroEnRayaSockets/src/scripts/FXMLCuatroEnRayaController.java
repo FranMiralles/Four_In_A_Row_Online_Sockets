@@ -98,20 +98,22 @@ public class FXMLCuatroEnRayaController implements Initializable {
         }
         tablero.add(circle, c, --f);
         tableroLogico[f][c] = 1;
-        int g = 0;
+        int g = 0; //ganar punto
+        int a = 0; //acabar
         if(comprobarGanar()){ 
             vaciarTablero(); g = 1;
             int count = Integer.parseInt(yourCount.getText()) + 1;
-            if(count == limPuntos){ acabar(1);} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
+            if(count == limPuntos){ a = 1;} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
             yourCount.setText(count + "");
         }
         
         try{
             PrintWriter pw = new PrintWriter(cliente.getOutputStream());
-            pw.println(f + "" + c + "" + g); pw.flush();
+            pw.println(f + "" + c + "" + g + "" + a); pw.flush();
             yourTurn.setDisable(true);
             otherTurn.setDisable(false);
             turno = false;
+            if(a == 1){ acabar(1);}
             recibir();
             
         }catch(IOException e){
@@ -128,6 +130,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
                 int f = Integer.parseInt(mensaje.charAt(0) + "");
                 int c = Integer.parseInt(mensaje.charAt(1) + "");
                 int g = Integer.parseInt(mensaje.charAt(2) + "");
+                int a = Integer.parseInt(mensaje.charAt(3) + "");
                 
                 Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
                     Circle circle = new Circle();
@@ -140,6 +143,10 @@ public class FXMLCuatroEnRayaController implements Initializable {
                         vaciarTablero();
                         int count = Integer.parseInt(otherCount.getText()) + 1;
                         otherCount.setText(count + "");
+                    }
+                    
+                    if(a == 1){ //Acabar, ha ganado el otro
+                        acabar(2);
                     }
                 });
                 turno = true;
@@ -172,12 +179,29 @@ public class FXMLCuatroEnRayaController implements Initializable {
         }
         
         //Columnas
-        for(int j = 0; j < 6; j++){
+        for(int j = 0; j < 7; j++){
             for(int i = 1; i < 4; i++){
                 if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j] == 1 && tableroLogico[i + 2][j] == 1 && tableroLogico[i + 3][j] == 1){ return true;}
             }
         }
         
+        //Diagonal menguante
+        if(tableroLogico[3][0] == 1 && tableroLogico[4][1] == 1 && tableroLogico[5][2] == 1 && tableroLogico[6][3] == 1){ return true;}
+        for(int i = 2, j = 0, veces = 2; veces > 0; veces--, i++, j++){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j + 1] == 1 && tableroLogico[i + 2][j + 2] == 1 && tableroLogico[i + 3][j + 3] == 1){ return true;}}
+        for(int i = 1, j = 0, veces = 3; veces > 0; veces--, i++, j++){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j + 1] == 1 && tableroLogico[i + 2][j + 2] == 1 && tableroLogico[i + 3][j + 3] == 1){ return true;}}
+        for(int i = 1, j = 1, veces = 3; veces > 0; veces--, i++, j++){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j + 1] == 1 && tableroLogico[i + 2][j + 2] == 1 && tableroLogico[i + 3][j + 3] == 1){ return true;}}
+        for(int i = 1, j = 2, veces = 2; veces > 0; veces--, i++, j++){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j + 1] == 1 && tableroLogico[i + 2][j + 2] == 1 && tableroLogico[i + 3][j + 3] == 1){ return true;}}
+        if(tableroLogico[1][3] == 1 && tableroLogico[2][4] == 1 && tableroLogico[3][5] == 1 && tableroLogico[4][6] == 1){ return true;}
+        
+        //Diagonal creciente
+        if(tableroLogico[3][6] == 1 && tableroLogico[4][5] == 1 && tableroLogico[5][4] == 1 && tableroLogico[6][3] == 1){ return true;}
+        for(int i = 2, j = 6, veces = 2; veces > 0; veces--, i++, j--){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j - 1] == 1 && tableroLogico[i + 2][j - 2] == 1 && tableroLogico[i + 3][j - 3] == 1){ return true;}}
+        for(int i = 1, j = 6, veces = 3; veces > 0; veces--, i++, j--){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j - 1] == 1 && tableroLogico[i + 2][j - 2] == 1 && tableroLogico[i + 3][j - 3] == 1){ return true;}}
+        for(int i = 1, j = 5, veces = 3; veces > 0; veces--, i++, j--){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j - 1] == 1 && tableroLogico[i + 2][j - 2] == 1 && tableroLogico[i + 3][j - 3] == 1){ return true;}}
+        for(int i = 1, j = 4, veces = 2; veces > 0; veces--, i++, j--){ if(tableroLogico[i][j] == 1 && tableroLogico[i + 1][j - 1] == 1 && tableroLogico[i + 2][j - 2] == 1 && tableroLogico[i + 3][j - 3] == 1){ return true;}}
+        if(tableroLogico[1][3] == 1 && tableroLogico[2][2] == 1 && tableroLogico[3][1] == 1 && tableroLogico[4][0] == 1){ return true;}
+        
+        //No se ha ganado
         return false;
     }
     
@@ -189,8 +213,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
         }
         List<Node> circlesToRemove = new ArrayList<>();
 
-        for (Node node : tablero.getChildren()) {
-            if (node instanceof Circle) {
+        for(Node node : tablero.getChildren()) {
+            if(node instanceof Circle) {
                 circlesToRemove.add(node);
             }
         }

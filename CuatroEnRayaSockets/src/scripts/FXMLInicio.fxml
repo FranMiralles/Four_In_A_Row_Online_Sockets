@@ -3,19 +3,20 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scripts.FXMLInicioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scripts.FXMLInicioController">
    <center>
-      <VBox alignment="CENTER" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="35.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" fillWidth="false" spacing="35.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: black;">
                <children>
@@ -42,7 +43,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="10.0">
                      <children>
-                        <Button fx:id="crearCliente" mnemonicParsing="false" onAction="#crearCliente" text="CREAR">
+                        <Button mnemonicParsing="false" onAction="#crearCliente" text="CREAR">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font></Button>
@@ -72,7 +73,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button fx:id="crearServidor" mnemonicParsing="false" onAction="#crearServidor" text="CREAR">
+                        <Button mnemonicParsing="false" onAction="#crearServidor" text="CREAR">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -88,6 +89,9 @@
                </padding>
             </VBox>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <top>
@@ -108,10 +112,17 @@
       </MenuBar>
    </top>
    <right>
-      <ListView fx:id="lista" prefWidth="225.0" BorderPane.alignment="CENTER">
-         <BorderPane.margin>
-            <Insets bottom="10.0" right="10.0" top="10.0" />
-         </BorderPane.margin>
-      </ListView>
+      <VBox alignment="BOTTOM_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="servidor" fitHeight="100.0" fitWidth="150.0" opacity="0.2" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets bottom="30.0" right="30.0" top="30.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@../images/Servidor.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
    </right>
 </BorderPane>
