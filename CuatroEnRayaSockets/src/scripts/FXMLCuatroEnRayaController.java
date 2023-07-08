@@ -69,7 +69,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
     public int[][] tableroLogico;
     Socket cliente;
     int limPuntos;
-    
+    int numFichas;
+    int capMaxFichas = 49;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -81,15 +82,17 @@ public class FXMLCuatroEnRayaController implements Initializable {
         c5.setOnAction(c -> {introducir(5);});
         c6.setOnAction(c -> {introducir(6);});
         tableroLogico = new int[7][7];
+        numFichas = 0;
     }    
     
     public int introducir(int c){
         if(!turno){ return -1;}
         if(tableroLogico[1][c] != 0){ return -1;}
-        
+        if(capMaxFichas == numFichas){ vaciarTablero(); numFichas = 0;}
+        numFichas++;
         Circle circle = new Circle();
-        circle.setRadius(20);
-        Paint paint = (Paint) Color.BLUE;
+        circle.setRadius(25);
+        Paint paint = (Paint) Color.YELLOW;
         circle.setFill(paint);
         
         int f = 1;
@@ -134,7 +137,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
                 
                 Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
                     Circle circle = new Circle();
-                    circle.setRadius(20);
+                    circle.setRadius(25);
                     Paint paint = (Paint) Color.RED;
                     circle.setFill(paint);
                     tablero.add(circle, c, f);
