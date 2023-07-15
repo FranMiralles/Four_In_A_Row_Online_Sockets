@@ -92,7 +92,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
         numFichas++;
         Circle circle = new Circle();
         circle.setRadius(25);
-        Paint paint = (Paint) Color.YELLOW;
+        Paint paint = (Paint) Color.rgb(215, 218, 14);
         circle.setFill(paint);
         
         int f = 1;
@@ -108,6 +108,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
             int count = Integer.parseInt(yourCount.getText()) + 1;
             if(count == limPuntos){ a = 1;} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
             yourCount.setText(count + "");
+            
+            //Esperar x tiempo para ver la victoria
         }
         
         try{
@@ -138,7 +140,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
                 Platform.runLater(() -> { //Esto se usa ya que en un hilo que no sea el de JavaFX no se pueden cambiar cosas gráficas, por lo que de esta forma se accede al hilo de JavaFX
                     Circle circle = new Circle();
                     circle.setRadius(25);
-                    Paint paint = (Paint) Color.RED;
+                    Paint paint = (Paint) Color.rgb(228, 31, 31);
                     circle.setFill(paint);
                     tablero.add(circle, c, f);
                     tableroLogico[f][c] = 2;

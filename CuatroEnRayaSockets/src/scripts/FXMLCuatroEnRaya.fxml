@@ -13,10 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" styleClass="borderPane" stylesheets="@css/EstiloPrincipal.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scripts.FXMLCuatroEnRayaController">
    <center>
-      <GridPane fx:id="tablero" gridLinesVisible="true" BorderPane.alignment="CENTER">
+      <GridPane fx:id="tablero" gridLinesVisible="true" style="-fx-background-color: #79e3f1;" BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,7 +69,7 @@
       </GridPane>
    </center>
    <top>
-      <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
@@ -77,63 +78,87 @@
           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="yourImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/men5.png" />
-                     </image>
-                  </ImageView>
-                  <VBox alignment="CENTER" spacing="10.0">
+                  <HBox alignment="CENTER_RIGHT" spacing="20.0" style="-fx-background-color: #79e3f1; -fx-border-color: black;">
                      <children>
-                        <Label fx:id="yourName" text="Fran" />
-                        <Circle fill="YELLOW" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <Circle fill="#e41f1ff2" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <VBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label fx:id="otherName" text="Lucía">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="CENTER" prefWidth="56.0" spacing="5.0">
+                                 <children>
+                                    <Label fx:id="otherTurn" text="Su turno" />
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="otherCount" text="0" />
+                                          <Label text="/" />
+                                          <Label fx:id="count2" text="5" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <ImageView fx:id="otherImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/woman3.png" />
+                           </image>
+                        </ImageView>
                      </children>
-                  </VBox>
-                  <Label fx:id="yourTurn" text="Tu turno" />
-                  <HBox alignment="CENTER">
-                     <children>
-                        <Label fx:id="yourCount" text="0" />
-                        <Label text="/" />
-                        <Label fx:id="count1" text="5" />
-                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
                   </HBox>
                </children>
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="20.0" right="60.0" top="20.0" />
                </GridPane.margin>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1">
+            <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <HBox alignment="CENTER">
+                  <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #79e3f1; -fx-border-color: black;">
                      <children>
-                        <Label fx:id="otherCount" text="0" />
-                        <Label text="/" />
-                        <Label fx:id="count2" text="5" />
+                        <ImageView fx:id="yourImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/men5.png" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Label fx:id="yourName" text="Fran">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <VBox alignment="CENTER" spacing="5.0">
+                                 <children>
+                                    <Label fx:id="yourTurn" text="Tu turno" />
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="yourCount" text="0" />
+                                          <Label text="/" />
+                                          <Label fx:id="count1" text="5" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <Circle fill="#d7da0e" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                     </padding>
                   </HBox>
-                  <Label fx:id="otherTurn" text="Su turno" />
-                  <VBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <Label fx:id="otherName" text="Lucía" />
-                        <Circle fill="#ff0000f2" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                     </children>
-                  </VBox>
-                  <ImageView fx:id="otherImage" fitHeight="90.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../IPC-TenisClubApplication/TrabajoIPC/src/avatars/woman3.png" />
-                     </image>
-                  </ImageView>
                </children>
                <GridPane.margin>
-                  <Insets />
+                  <Insets bottom="20.0" left="60.0" top="20.0" />
                </GridPane.margin>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
             </HBox>
          </children>
       </GridPane>
@@ -145,6 +170,19 @@
       <Pane prefHeight="200.0" prefWidth="60.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <HBox prefHeight="80.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <HBox alignment="CENTER" style="-fx-background-color: #79e3f1; -fx-border-color: black;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Esperando a Lucía...">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding></HBox>
    </bottom>
 </BorderPane>
