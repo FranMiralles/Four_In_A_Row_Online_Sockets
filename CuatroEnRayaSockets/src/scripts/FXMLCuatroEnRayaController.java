@@ -1,7 +1,6 @@
 package scripts;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import javafx.scene.paint.Color;
@@ -104,12 +103,12 @@ public class FXMLCuatroEnRayaController implements Initializable {
         int g = 0; //ganar punto
         int a = 0; //acabar
         if(comprobarGanar()){ 
-            vaciarTablero(); g = 1;
+            g = 1;
             int count = Integer.parseInt(yourCount.getText()) + 1;
             if(count == limPuntos){ a = 1;} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
             yourCount.setText(count + "");
             
-            //Esperar x tiempo para ver la victoria
+            esperar10();
         }
         
         try{
@@ -145,7 +144,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
                     tablero.add(circle, c, f);
                     tableroLogico[f][c] = 2;
                     if(g == 1){ /*Ha ganado el otro*/
-                        vaciarTablero();
+                        esperar10();
                         int count = Integer.parseInt(otherCount.getText()) + 1;
                         otherCount.setText(count + "");
                     }
@@ -225,6 +224,36 @@ public class FXMLCuatroEnRayaController implements Initializable {
         }
 
         tablero.getChildren().removeAll(circlesToRemove);
+    }
+    
+    private void esperar10(){
+        //Esperar x tiempo para ver la victoria
+        c0.setDisable(true);
+        c1.setDisable(true);
+        c2.setDisable(true);
+        c3.setDisable(true);
+        c4.setDisable(true);
+        c5.setDisable(true);
+        c6.setDisable(true);
+        new Thread(() -> {
+            try {
+                // Espera de 10 segundos (10000 milisegundos)
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.toString();
+            }
+
+            Platform.runLater(() -> {
+                vaciarTablero(); 
+                c0.setDisable(false);
+                c1.setDisable(false);
+                c2.setDisable(false);
+                c3.setDisable(false);
+                c4.setDisable(false);
+                c5.setDisable(false);
+                c6.setDisable(false);
+            });
+        }).start();
     }
     
     public void configurar(String yName, int yImage, String oName, int oImage, int ronda, int turno, Image[] images){
