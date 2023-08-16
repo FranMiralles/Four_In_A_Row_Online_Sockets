@@ -63,6 +63,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
     private Label count1;
     @FXML
     private Label count2;
+    @FXML
+    private Label state;
     
     public boolean turno;
     public int[][] tableroLogico;
@@ -102,13 +104,15 @@ public class FXMLCuatroEnRayaController implements Initializable {
         tableroLogico[f][c] = 1;
         int g = 0; //ganar punto
         int a = 0; //acabar
+        boolean ganar = false;
         if(comprobarGanar()){ 
             g = 1;
             int count = Integer.parseInt(yourCount.getText()) + 1;
             if(count == limPuntos){ a = 1;} // LLamar a acabar después de enviar un mensaje que indique que hay que acabar al otro cliente
             yourCount.setText(count + "");
-            
-            esperar10();
+            state.setText("¡Has puntuado, enhorabuena! Vaciando tablero...");
+            esperar5();
+            ganar = true;
         }
         
         try{
@@ -118,7 +122,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
             otherTurn.setDisable(false);
             turno = false;
             if(a == 1){ acabar(1);}
-            recibir();
+            if(ganar){ recibir(false); }
+            else{ recibir(true); }
             
         }catch(IOException e){
             System.out.println(e.toString());
@@ -126,7 +131,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
         return 0;
     }
     
-    public void recibir(){
+    public void recibir(boolean writeState){
+        if(writeState){ state.setText("Esperando la elección de " + otherName.getText() + "..."); }
         new Thread(() -> {
             try{
                 Scanner sc = new Scanner(cliente.getInputStream());
@@ -143,10 +149,12 @@ public class FXMLCuatroEnRayaController implements Initializable {
                     circle.setFill(paint);
                     tablero.add(circle, c, f);
                     tableroLogico[f][c] = 2;
+                    state.setText("¡Elige dónde poner la ficha!");
                     if(g == 1){ /*Ha ganado el otro*/
-                        esperar10();
+                        esperar5();
                         int count = Integer.parseInt(otherCount.getText()) + 1;
                         otherCount.setText(count + "");
+                        state.setText("¡Ha puntuado " + otherName.getText() + "! Vaciando tablero...");
                     }
                     
                     if(a == 1){ //Acabar, ha ganado el otro
@@ -226,7 +234,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
         tablero.getChildren().removeAll(circlesToRemove);
     }
     
-    private void esperar10(){
+    private void esperar5(){
         //Esperar x tiempo para ver la victoria
         c0.setDisable(true);
         c1.setDisable(true);
@@ -237,8 +245,8 @@ public class FXMLCuatroEnRayaController implements Initializable {
         c6.setDisable(true);
         new Thread(() -> {
             try {
-                // Espera de 10 segundos (10000 milisegundos)
-                Thread.sleep(10000);
+                // Espera de 5 segundos (5000 milisegundos)
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.toString();
             }
@@ -252,6 +260,11 @@ public class FXMLCuatroEnRayaController implements Initializable {
                 c4.setDisable(false);
                 c5.setDisable(false);
                 c6.setDisable(false);
+                if(turno){
+                    state.setText("¡Elige dónde poner la ficha!");
+                }else{
+                    state.setText("Esperando la elección de " + otherName.getText() + "...");
+                }
             });
         }).start();
     }
@@ -267,11 +280,12 @@ public class FXMLCuatroEnRayaController implements Initializable {
         if(turno == 1){
             otherTurn.setDisable(true);
             this.turno = true;
+            state.setText("¡Elige dónde poner la ficha!");
         }else{
             yourTurn.setDisable(true);
             this.turno = false;
             //Método a esperar por mensaje
-            recibir();
+            recibir(true);
         }
         setMin();
         Alert a = new Alert(AlertType.INFORMATION);

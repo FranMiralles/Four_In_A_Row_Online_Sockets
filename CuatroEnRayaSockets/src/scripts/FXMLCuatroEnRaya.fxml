@@ -172,7 +172,7 @@
    <bottom>
       <HBox alignment="CENTER" style="-fx-background-color: #79e3f1; -fx-border-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Esperando a Lucía...">
+            <Label fx:id="state" text="Esperando a Lucía...">
                <font>
                   <Font size="12.0" />
                </font>
