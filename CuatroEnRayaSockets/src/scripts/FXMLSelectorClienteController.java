@@ -100,7 +100,7 @@ public class FXMLSelectorClienteController implements Initializable {
                 controller.configurar(nombreJugador.getText(), i, nameOponent, numOponent, ronda, turno, images);
                 stage.setResizable(true);
                 stage.setMinWidth(900);
-                stage.setMinHeight(800);
+                stage.setMinHeight(850);
             });
             
         }catch(IOException e){

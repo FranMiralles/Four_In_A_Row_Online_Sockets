@@ -282,7 +282,7 @@ public class FXMLCuatroEnRayaController implements Initializable {
     public void setMin(){
         Stage stage = (Stage) c1.getScene().getWindow();
         stage.setMinWidth(900);
-        stage.setMinHeight(800);
+        stage.setMinHeight(850);
     }
     
     public void setSocket(Socket cliente){
