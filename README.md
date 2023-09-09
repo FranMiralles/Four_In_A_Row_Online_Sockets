@@ -17,3 +17,6 @@ Juego Cuatro En Raya, estilo conecta cuatro. Permite jugar online mediante la co
 <img src="ImagesReadme/Juego1.png" alt="Alt Text" width="1000px" />
 
 <img src="ImagesReadme/Juego2.png" alt="Alt Text" width="1000px" />
+
+
+// Para poder crear un servidor funcional con el que conectarte con algún jugador en red, tu router debe redirigir los mensajes a tu ordenador por el puerto correspondiente
